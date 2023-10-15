@@ -24,7 +24,7 @@ Element* create_AT(int a)
   return e;
 }
 
-Element* insertFirst_AT(Element* list, int a)
+Element* pushFirst_AT(Element* list, int a)
 {
   Element* e = create_AT(a);
 
@@ -33,7 +33,7 @@ Element* insertFirst_AT(Element* list, int a)
   return e;
 }
 
-Element* insertLast_AT(Element* list, int a)
+Element* pushLast_AT(Element* list, int a)
 {
   Element *e = create_AT(a), *tmp = list;
 
@@ -63,7 +63,7 @@ Element* find_AT(Element* list, int a)
   return NULL;
 }
 
-Element* remove_AT(Element* list, int a)
+Element* pop_AT(Element* list, int a)
 {
   Element *previous, *cur = list;
 
