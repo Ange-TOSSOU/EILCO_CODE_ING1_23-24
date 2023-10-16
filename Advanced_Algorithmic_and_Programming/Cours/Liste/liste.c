@@ -76,7 +76,6 @@ Element* pop_AT(Element* list, int a)
   }
   else
   {
-    cur = cur->next;
     while( (cur != NULL) && (cur->value != a) )
     {
       previous = cur;
