@@ -24,9 +24,9 @@ int main()
   pile = push_AT(pile, 7);
   print_AT(pile);
   
-  /*pile = pop_AT(pile, 3);
+  /*pile = pop_AT(pile, 3, NULL);
   print_AT(pile);*/
-  pile = pop_AT(pile);
+  pile = pop_AT(pile, NULL);
   print_AT(pile); 
   
   pile = clean_AT(pile);

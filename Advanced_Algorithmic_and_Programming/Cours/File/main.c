@@ -24,7 +24,7 @@ int main()
   f = push_AT(f, 7);
   print_AT(f);
   
-  f = pop_AT(f);
+  f = pop_AT(f, NULL);
   print_AT(f); 
   
   f = clean_AT(f);

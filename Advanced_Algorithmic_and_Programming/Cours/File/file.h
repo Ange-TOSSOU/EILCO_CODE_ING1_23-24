@@ -19,7 +19,7 @@ Element* find_AT(File* f, int a);
 
 File* clean_AT(File* f);
 File* createQ_AT();
-File* pop_AT(File* f);
+File* pop_AT(File* f, int* a);
 File* push_AT(File* f, int a);
 
 void print_AT(File* f);

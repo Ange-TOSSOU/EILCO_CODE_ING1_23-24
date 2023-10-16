@@ -12,6 +12,6 @@ Element* clean_AT(Element* pile);
 Element* create_AT(int a);
 Element* push_AT(Element* pile, int a);
 Element* find_AT(Element* pile, int a);
-Element* pop_AT(Element* pile);
+Element* pop_AT(Element* pile, int* a);
 
 void print_AT(Element* pile);

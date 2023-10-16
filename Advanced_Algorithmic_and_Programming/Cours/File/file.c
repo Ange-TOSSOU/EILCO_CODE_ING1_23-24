@@ -6,7 +6,7 @@ File* clean_AT(File* f)
   if(f != NULL)
   {
     while(f->head != NULL)
-      f = pop_AT(f);
+      f = pop_AT(f, NULL);
   }
 
   return f;
@@ -67,7 +67,7 @@ Element* find_AT(File* f, int a)
   return p;
 }
 
-File* pop_AT(File* f)
+File* pop_AT(File* f, int* a)
 {
   Element *tmp;
 
@@ -76,6 +76,8 @@ File* pop_AT(File* f)
 
   tmp = f->head;
   f->head = f->head->next;
+  if(a != NULL)
+    *a = tmp->value;
   free(tmp);
 
   if(f->head == NULL)

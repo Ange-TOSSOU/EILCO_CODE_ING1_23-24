@@ -4,7 +4,7 @@
 Element* clean_AT(Element* pile)
 {
   while(pile != NULL)
-    pile = pop_AT(pile);
+    pile = pop_AT(pile, NULL);
 
   return pile;
 }
@@ -40,13 +40,15 @@ Element* find_AT(Element* pile, int a)
   return NULL;
 }
 
-Element* pop_AT(Element* pile)
+Element* pop_AT(Element* pile, int* a)
 {
   Element *cur = pile;
 
   if(cur != NULL)
   {
     pile = cur->next;
+    if(a != NULL)
+      *a = cur->value;
     free(cur);
   }
   
