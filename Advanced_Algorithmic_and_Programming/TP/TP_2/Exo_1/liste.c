@@ -1,5 +1,41 @@
 #include "liste.h"
 
+int meilleurePosition(Client* liste, Client* c)
+{
+  int pos = 0, i = 0, delta, tmp;
+  Client *previous, *cur = liste;
+
+  if(liste != NULL)
+  {
+    delta = distanceDepot(c) + distance(c, cur) - distanceDepot(cur);
+    while(cur->next != NULL)
+    {
+      previous = cur;
+      cur = cur->next;
+      ++i;
+      tmp = distance(previous, c) + distance(c, cur) - distance(previous, cur);
+      if(tmp < delta)
+      {
+        delta = tmp;
+	pos = i;
+      }
+    }
+
+    if(liste->next != NULL)
+    {
+      ++i;
+      tmp = distance(cur, c) + distanceDepot(c) - distanceDepot(cur);
+      if(tmp < delta)
+      {
+        delta = tmp;
+	pos = i;
+      }
+    }
+  }
+
+  return pos;
+}
+
 float distance(Client* c1, Client* c2)
 {
   float dist = 0.0;
@@ -30,7 +66,7 @@ float distanceTotale(Client* liste)
   else
   {
     dist += distanceDepot(cur);
-    while( (cur != NULL) && (cur->next != NULL) )
+    while(cur->next != NULL)
     {
       previous = cur;
       cur = cur->next;
@@ -42,10 +78,10 @@ float distanceTotale(Client* liste)
   return dist;
 }
 
-Client* clean(Client* liste)
+Client* cleanAllClients(Client* liste)
 {
   while(liste != NULL)
-    liste = suppressionClient(liste, 1);
+    liste = suppressionClient(liste, 0);
 
   return liste;
 }

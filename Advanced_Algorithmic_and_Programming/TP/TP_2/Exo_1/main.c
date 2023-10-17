@@ -11,11 +11,14 @@ int main()
   tab[3] = creerClient(3, 2, 2, 15);
   for(i=0; i<4; i++)
   {
-    pos = 100;
+    pos = meilleurePosition(liste, tab[i]);
     liste = insertionClient(liste, tab[i], pos);
     afficher(liste);
     printf(" distance parcourue %f\n", distanceTotale(liste));
   }
+
+  liste = cleanAllClients(liste);
+  afficher(liste);
 
   return EXIT_SUCCESS;
 }
