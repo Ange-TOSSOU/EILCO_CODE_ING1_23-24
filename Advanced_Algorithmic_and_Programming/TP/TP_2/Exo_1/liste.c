@@ -2,7 +2,8 @@
 
 int meilleurePosition(Client* liste, Client* c)
 {
-  int pos = 0, i = 0, delta, tmp;
+  int pos = 0, i = 0;
+  float delta, tmp;
   Client *previous, *cur = liste;
 
   if(liste != NULL)
