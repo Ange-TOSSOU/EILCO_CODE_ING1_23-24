@@ -3,24 +3,51 @@
 float distance(Client* c1, Client* c2)
 {
   float dist = 0.0;
+
   if( (c1 != NULL) && (c2 != NULL) )
     dist = pow(c1->x - c2->x, 2) + pow(c1->y - c2->y, 2);
 
   return sqrt(dist);
 }
 
-Client* clean_AT(Client* liste)
+float distanceDepot(Client* c)
 {
-  Client* p = NULL;
+  float dist = 0.0;
 
-  while(liste != NULL)
+  if(c != NULL)
+    dist = pow(c->x, 2) + pow(c->y, 2);
+
+  return sqrt(dist);
+}
+
+float distanceTotale(Client* liste)
+{
+  float dist = 0.0;
+  Client *previous, *cur = liste;
+
+  if(cur == NULL)
+    ;
+  else
   {
-    p = liste;
-    liste = liste->next;
-    free(p);
+    dist += distanceDepot(cur);
+    while( (cur != NULL) && (cur->next != NULL) )
+    {
+      previous = cur;
+      cur = cur->next;
+      dist += distance(previous, cur);
+    }
+    dist += distanceDepot(cur);
   }
+  
+  return dist;
+}
 
-  return NULL;
+Client* clean(Client* liste)
+{
+  while(liste != NULL)
+    liste = suppressionClient(liste, 1);
+
+  return liste;
 }
 
 Client* creerClient(int id, float x, float y, int q)
@@ -35,60 +62,48 @@ Client* creerClient(int id, float x, float y, int q)
   return e;
 }
 
-Client* pushFirst_AT(Client* liste, int a)
+Client* insertionClient(Client* liste, Client* c, int pos)
 {
-  Client* e = create_AT(a);
-
-  e->next = liste;
-
-  return e;
-}
-
-Client* pushLast_AT(Client* liste, int a)
-{
-  Client *e = create_AT(a), *tmp = liste;
+  Client *previous, *cur = liste;
 
   if(liste == NULL)
-    liste = e;
+    liste = c;
   else
   {
-    while( (tmp != NULL) && (tmp->next != NULL))
-      tmp = tmp->next;
-
-    tmp->next = e;
+    if(pos == 0)
+    {
+      c->next = liste;
+      liste = c;
+    }
+    else
+    {
+      for(int i=0; (cur != NULL) && (i < pos); ++i)
+      {
+        previous = cur;
+        cur = cur->next;
+      }
+      c->next = previous->next;
+      previous->next = c;
+    }
   }
 
   return liste;
 }
 
-Client* find_AT(Client* liste, int a)
-{
-  while(liste != NULL)
-  {
-    if(liste->value == a)
-      return liste;
-
-    liste = liste->next;
-  }
-
-  return NULL;
-}
-
-Client* pop_AT(Client* liste, int a)
+Client* suppressionClient(Client* liste, int pos)
 {
   Client *previous, *cur = liste;
 
   if(cur == NULL)
     ;
-  else if(cur->value == a)
+  else if(pos == 0)
   {
     liste = cur->next;
     free(cur);
   }
   else
   {
-    cur = cur->next;
-    while( (cur != NULL) && (cur->value != a) )
+    for(int i=0; (cur != NULL) && (i < pos); ++i)
     {
       previous = cur;
       cur = cur->next;
@@ -115,11 +130,11 @@ int nbrDigit(int n)
   return cpt;
 }
 
-void printNbrSpace(int n)
+void printNbrChar(int n, char c)
 {
   while(n)
   {
-    printf(" ");
+    printf("%c", c);
     n--;
   }
 }
@@ -130,22 +145,24 @@ void printHeaderTable()
   int_s = nbrDigit(INT_MAX);
 
   printf(" ID");
-  printNbrSpace(int_s - 2 + 1);
+  printNbrChar(int_s - 2 + 1, ' ');
   printf("|");
   printf(" NEXT");
-  printNbrSpace(int_s - 4 + 1);
+  printNbrChar(int_s - 4 + 1, ' ');
   printf("|");
   printf(" Qte");
-  printNbrSpace(int_s - 3 + 1);
+  printNbrChar(int_s - 3 + 1, ' ');
   printf("|");
   printf(" (X , Y)\n");
 
-  printNbrSpace(int_s + 2);
+  printNbrChar(int_s + 2, '-');
   printf("+");
-  printNbrSpace(int_s + 2);
+  printNbrChar(int_s + 2, '-');
   printf("+");
-  printNbrSpace(int_s + 2);
-  printf("+\n");
+  printNbrChar(int_s + 2, '-');
+  printf("+");
+  printNbrChar(9, '-');
+  printf("\n");
 }
 
 void afficher(Client* liste)
@@ -156,23 +173,23 @@ void afficher(Client* liste)
   {
     ++cpt;
     printf(" %d", liste->id);
-    printNbrSpace(int_s - nbrDigit(liste->id) + 1);
+    printNbrChar(int_s - nbrDigit(liste->id) + 1, ' ');
     printf("|");
     if(liste->next != NULL)
     {
       printf(" %d", liste->next->id);
-      printNbrSpace(int_s - nbrDigit(liste->next->id) + 1);
+      printNbrChar(int_s - nbrDigit(liste->next->id) + 1, ' ');
     }
     else
-      printNbrSpace(int_s + 1);
+      printNbrChar(1 + int_s + 1, ' ');
     printf("|");
     printf(" %d", liste->q);
-    printNbrSpace(int_s - nbrDigit(q) + 1);
+    printNbrChar(int_s - nbrDigit(liste->q) + 1, ' ');
     printf("|");
     printf(" (%.2f, %.2f)\n", liste->x, liste->y);
 
     liste = liste->next;
   }
 
-  printf("\n(%d)rows\n\n", cpt);
+  printf("\n(%d)rows\n", cpt);
 }
