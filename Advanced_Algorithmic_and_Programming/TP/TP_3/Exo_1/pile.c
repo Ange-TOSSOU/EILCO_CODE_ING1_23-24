@@ -27,7 +27,7 @@ float evaluer(char expression[])
         if(b != 0)
           r = a/b;
 	else
-          return EXIT_FAILURE;
+          exit(EXIT_FAILURE);
       }
       pile = push_AT(pile, r);
     }
@@ -38,7 +38,7 @@ float evaluer(char expression[])
   else
   {
     if(i != 0)
-      return EXIT_FAILURE;
+      exit(EXIT_FAILURE);
   }
 
   return r;
