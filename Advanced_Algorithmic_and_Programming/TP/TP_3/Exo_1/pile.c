@@ -5,17 +5,17 @@ float evaluer(char expression[])
 {
   char c;
   int i;
-  float a, b, r = 0;
+  float a, b, r;
   Element *pile = NULL;
 
   for(i=0; (c=expression[i]) != '\0'; ++i)
   {
     if(is_digit(c))
-      pile = push_AT(pile, c-'0');
+      pile = pushElement(pile, c-'0');
     else if(is_operator(c))
     {
-      pile = pop_AT(pile, &b);
-      pile = pop_AT(pile, &a);
+      pile = popElement(pile, &b);
+      pile = popElement(pile, &a);
       if(c == '+')
         r = a + b;
       else if(c == '-')
@@ -29,12 +29,12 @@ float evaluer(char expression[])
 	else
           exit(EXIT_FAILURE);
       }
-      pile = push_AT(pile, r);
+      pile = pushElement(pile, r);
     }
   }
 
   if( (pile != NULL) && (pile->next == NULL) )
-    pile = pop_AT(pile, &r);
+    pile = popElement(pile, &r);
   else
   {
     if(i != 0)
@@ -44,15 +44,15 @@ float evaluer(char expression[])
   return r;
 }
 
-Element* clean_AT(Element* pile)
+Element* cleanStack(Element* pile)
 {
   while(pile != NULL)
-    pile = pop_AT(pile, NULL);
+    pile = popElement(pile, NULL);
 
   return pile;
 }
 
-Element* create_AT(float a)
+Element* createElement(float a)
 {
   Element* e = (Element*)malloc(sizeof(Element));
   e->value = a;
@@ -61,16 +61,16 @@ Element* create_AT(float a)
   return e;
 }
 
-Element* push_AT(Element* pile, float a)
+Element* pushElement(Element* pile, float a)
 {
-  Element* e = create_AT(a);
+  Element* e = createElement(a);
 
   e->next = pile;
 
   return e;
 }
 
-Element* find_AT(Element* pile, float a)
+Element* findElement(Element* pile, float a)
 {
   while(pile != NULL)
   {
@@ -83,7 +83,7 @@ Element* find_AT(Element* pile, float a)
   return NULL;
 }
 
-Element* pop_AT(Element* pile, float* a)
+Element* popElement(Element* pile, float* a)
 {
   Element *cur = pile;
 
@@ -98,16 +98,16 @@ Element* pop_AT(Element* pile, float* a)
   return pile;
 }
 
-void print_AT(Element* pile)
+void printStack(Element* pile)
 {
-  float begin = 1;
+  float start = 1;
   
   while(pile != NULL)
   {
-    if(begin)
+    if(start)
     {
       printf("{%.2f}", pile->value);
-      begin = 0;
+      start = 0;
     }
     else
       printf(" -> {%.2f}", pile->value);
@@ -115,8 +115,9 @@ void print_AT(Element* pile)
     pile = pile->next;
   }
 
-  if(begin)
-    printf("The pile is empty.");
+  if(start)
+    printf("The stack is empty.");
 
   printf("\n");
 }
+

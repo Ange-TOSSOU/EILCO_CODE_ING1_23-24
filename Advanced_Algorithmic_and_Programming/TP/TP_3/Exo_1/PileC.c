@@ -16,10 +16,10 @@ char* convertir_infixe_postfixe(char expI[])
       ++j;
     }
     else if(is_operator(c))
-      pile_op = pushC_AT(pile_op, c);
+      pile_op = pushElementC(pile_op, c);
     else if(c == ')')
     {
-      pile_op = popC_AT(pile_op, postfixe+j);
+      pile_op = popElementC(pile_op, postfixe+j);
       ++j;
     }
   }
@@ -27,15 +27,15 @@ char* convertir_infixe_postfixe(char expI[])
   return postfixe;
 }
 
-ElementC* cleanC_AT(ElementC* pile)
+ElementC* cleanStackC(ElementC* pile)
 {
   while(pile != NULL)
-    pile = popC_AT(pile, NULL);
+    pile = popElementC(pile, NULL);
 
   return pile;
 }
 
-ElementC* createC_AT(char a)
+ElementC* createElementC(char a)
 {
   ElementC* e = (ElementC*)malloc(sizeof(ElementC));
   e->value = a;
@@ -44,16 +44,16 @@ ElementC* createC_AT(char a)
   return e;
 }
 
-ElementC* pushC_AT(ElementC* pile, char a)
+ElementC* pushElementC(ElementC* pile, char a)
 {
-  ElementC* e = createC_AT(a);
+  ElementC* e = createElementC(a);
 
   e->next = pile;
 
   return e;
 }
 
-ElementC* findC_AT(ElementC* pile, char a)
+ElementC* findElementC(ElementC* pile, char a)
 {
   while(pile != NULL)
   {
@@ -66,7 +66,7 @@ ElementC* findC_AT(ElementC* pile, char a)
   return NULL;
 }
 
-ElementC* popC_AT(ElementC* pile, char* a)
+ElementC* popElementC(ElementC* pile, char* a)
 {
   ElementC *cur = pile;
 
@@ -81,16 +81,16 @@ ElementC* popC_AT(ElementC* pile, char* a)
   return pile;
 }
 
-void printC_AT(ElementC* pile)
+void printStackC(ElementC* pile)
 {
-  char begin = 1;
+  char start = 1;
   
   while(pile != NULL)
   {
-    if(begin)
+    if(start)
     {
       printf("{%c}", pile->value);
-      begin = 0;
+      start = 0;
     }
     else
       printf(" -> {%c}", pile->value);
@@ -98,8 +98,9 @@ void printC_AT(ElementC* pile)
     pile = pile->next;
   }
 
-  if(begin)
-    printf("The pile is empty.");
+  if(start)
+    printf("The stack is empty.");
 
   printf("\n");
 }
+
