@@ -14,7 +14,7 @@ int main()
     pos = meilleurePosition(liste, tab[i]);
     liste = insertionClient(liste, tab[i], pos);
     afficher(liste);
-    printf(" distance parcourue %f\n", distanceTotale(liste));
+    printf(" distance parcourue %f\n\n", distanceTotale(liste));
   }
 
   liste = cleanAllClients(liste);
@@ -22,3 +22,4 @@ int main()
 
   return EXIT_SUCCESS;
 }
+

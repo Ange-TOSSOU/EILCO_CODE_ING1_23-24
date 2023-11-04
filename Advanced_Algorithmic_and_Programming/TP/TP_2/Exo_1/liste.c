@@ -3,8 +3,8 @@
 int meilleurePosition(Client* liste, Client* c)
 {
   int pos = 0, i = 0;
-  float delta, tmp;
-  Client *previous, *cur = liste;
+  float delta = 0.0, tmp;
+  Client *previous = NULL, *cur = liste;
 
   if(liste != NULL)
   {
@@ -60,11 +60,9 @@ float distanceDepot(Client* c)
 float distanceTotale(Client* liste)
 {
   float dist = 0.0;
-  Client *previous, *cur = liste;
+  Client *previous = NULL, *cur = liste;
 
-  if(cur == NULL)
-    ;
-  else
+  if(cur != NULL)
   {
     dist += distanceDepot(cur);
     while(cur->next != NULL)
@@ -101,25 +99,26 @@ Client* creerClient(int id, float x, float y, int q)
 
 Client* insertionClient(Client* liste, Client* c, int pos)
 {
-  Client *previous, *cur = liste;
+  int i = 0;
+  Client *previous = NULL, *cur = liste;
 
   if(liste == NULL)
     liste = c;
   else
   {
-    if(pos == 0)
+    if(pos <= 0)
     {
       c->next = liste;
       liste = c;
     }
     else
     {
-      for(int i=0; (cur != NULL) && (i < pos); ++i)
+      for(i=0; (cur != NULL) && (i < pos); ++i)
       {
         previous = cur;
         cur = cur->next;
       }
-      c->next = previous->next;
+      c->next = cur;
       previous->next = c;
     }
   }
@@ -129,33 +128,35 @@ Client* insertionClient(Client* liste, Client* c, int pos)
 
 Client* suppressionClient(Client* liste, int pos)
 {
-  Client *previous, *cur = liste;
+  int i = 0;
+  Client *previous = NULL, *cur = liste;
 
-  if(cur == NULL)
-    ;
-  else if(pos == 0)
+  if( (cur != NULL) && (pos >= 0) )
   {
-    liste = cur->next;
-    free(cur);
-  }
-  else
-  {
-    for(int i=0; (cur != NULL) && (i < pos); ++i)
+    if(pos == 0)
     {
-      previous = cur;
-      cur = cur->next;
-    }
-    if(cur != NULL)
-    {
-      previous->next = cur->next;
+      liste = cur->next;
       free(cur);
+    }
+    else
+    {
+      for(i=0; (cur != NULL) && (i < pos); ++i)
+      {
+        previous = cur;
+        cur = cur->next;
+      }
+      if(cur != NULL)
+      {
+        previous->next = cur->next;
+        free(cur);
+      }
     }
   }
   
   return liste;
 }
 
-int nbrDigit(int n)
+/*int nbrDigit(int n)
 {
   int cpt = 0;
   do
@@ -229,4 +230,28 @@ void afficher(Client* liste)
   }
 
   printf("\n(%d)rows\n", cpt);
+}*/
+
+void afficher(Client* liste)
+{
+  int start = 1;
+
+  while(liste != NULL)
+  {
+    if(start)
+    {
+      printf("{ id:%d; q:%d; (%.2f, %.2f) }", liste->id, liste->q, liste->x, liste->y);
+      start = 0;
+    }
+    else
+      printf(" -> { id:%d; q:%d; (%.2f, %.2f) }", liste->id, liste->q, liste->x, liste->y);
+
+    liste = liste->next;
+  }
+
+  if(start)
+    printf("There is no clients.");
+
+  printf("\n");
 }
+
