@@ -8,11 +8,11 @@ struct element
 };
 typedef struct element Element;
 
-Element* clean_AT(Element* list);
-Element* create_AT(int a);
-Element* pushFirst_AT(Element* list, int a);
-Element* pushLast_AT(Element* list, int a);
-Element* find_AT(Element* list, int a);
-Element* pop_AT(Element* list, int a);
+Element* cleanList(Element* list);
+Element* createElement(int a);
+Element* pushElementStartOfList(Element* list, int a);
+Element* pushElementEndOfList(Element* list, int a);
+Element* findElement(Element* list, int a);
+Element* popElement(Element* list, int a);
 
-void print_AT(Element* list);
+void printList(Element* list);

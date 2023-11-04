@@ -1,21 +1,21 @@
 #include "liste.h"
 
 
-Element* clean_AT(Element* list)
+Element* cleanList(Element* list)
 {
-  Element* p = NULL;
+  Element *previous = NULL, *cur = list;
 
-  while(list != NULL)
+  while(cur != NULL)
   {
-    p = list;
-    list = list->next;
-    free(p);
+    previous = cur;
+    cur = cur->next;
+    free(previous);
   }
 
-  return NULL;
+  return cur;
 }
 
-Element* create_AT(int a)
+Element* createElement(int a)
 {
   Element* e = (Element*)malloc(sizeof(Element));
   e->value = a;
@@ -24,24 +24,24 @@ Element* create_AT(int a)
   return e;
 }
 
-Element* pushFirst_AT(Element* list, int a)
+Element* pushElementStartOfList(Element* list, int a)
 {
-  Element* e = create_AT(a);
+  Element* e = createElement(a);
 
   e->next = list;
 
   return e;
 }
 
-Element* pushLast_AT(Element* list, int a)
+Element* pushElementEndOfList(Element* list, int a)
 {
-  Element *e = create_AT(a), *tmp = list;
+  Element *e = createElement(a), *tmp = list;
 
   if(list == NULL)
     list = e;
   else
   {
-    while( (tmp != NULL) && (tmp->next != NULL))
+    while( (tmp != NULL) && (tmp->next != NULL) )
       tmp = tmp->next;
 
     tmp->next = e;
@@ -50,7 +50,7 @@ Element* pushLast_AT(Element* list, int a)
   return list;
 }
 
-Element* find_AT(Element* list, int a)
+Element* findElement(Element* list, int a)
 {
   while(list != NULL)
   {
@@ -63,44 +63,45 @@ Element* find_AT(Element* list, int a)
   return NULL;
 }
 
-Element* pop_AT(Element* list, int a)
+Element* popElement(Element* list, int a)
 {
-  Element *previous, *cur = list;
+  Element *previous = NULL, *cur = list;
 
-  if(cur == NULL)
-    ;
-  else if(cur->value == a)
+  if(cur != NULL)
   {
-    list = cur->next;
-    free(cur);
-  }
-  else
-  {
-    while( (cur != NULL) && (cur->value != a) )
+    if(cur->value == a)
     {
-      previous = cur;
-      cur = cur->next;
-    }
-    if(cur != NULL)
-    {
-      previous->next = cur->next;
+      list = cur->next;
       free(cur);
+    }
+    else
+    {
+      while( (cur != NULL) && (cur->value != a) )
+      {
+        previous = cur;
+        cur = cur->next;
+      }
+      if(cur != NULL)
+      {
+        previous->next = cur->next;
+        free(cur);
+      }
     }
   }
   
   return list;
 }
 
-void print_AT(Element* list)
+void printList(Element* list)
 {
-  int begin = 1;
+  int start = 1;
   
   while(list != NULL)
   {
-    if(begin)
+    if(start)
     {
       printf("{%d}", list->value);
-      begin = 0;
+      start = 0;
     }
     else
       printf(" -> {%d}", list->value);
@@ -108,7 +109,7 @@ void print_AT(Element* list)
     list = list->next;
   }
 
-  if(begin)
+  if(start)
     printf("The list is empty.");
 
   printf("\n");

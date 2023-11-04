@@ -4,33 +4,31 @@ int main()
 {
   Element* list = NULL;
 
-  print_AT(list);
+  printList(list);
 
-  list = pushFirst_AT(list, 6);
-  list = pushFirst_AT(list, 2);
-  list = pushFirst_AT(list, 3);
-  print_AT(list);
+  list = pushElementStartOfList(list, 6);
+  list = pushElementStartOfList(list, 2);
+  list = pushElementStartOfList(list, 3);
+  printList(list);
 
-  list = pushLast_AT(list, 9);
-  list = pushLast_AT(list, 9);
-  list = pushLast_AT(list, 2);
-  print_AT(list);
+  list = pushElementEndOfList(list, 9);
+  list = pushElementEndOfList(list, 9);
+  list = pushElementEndOfList(list, 2);
+  printList(list);
 
-  list = clean_AT(list);
-  print_AT(list);
+  list = cleanList(list);
+  printList(list);
 
-  list = pushFirst_AT(list, 2);
-  list = pushFirst_AT(list, 3);
-  list = pushFirst_AT(list, 7);
-  print_AT(list);
+  list = pushElementStartOfList(list, 2);
+  list = pushElementStartOfList(list, 3);
+  list = pushElementStartOfList(list, 7);
+  printList(list);
   
-  /*list = pop_AT(list, 3);
-  print_AT(list);*/
-  list = pop_AT(list, 2);
-  print_AT(list); 
+  list = popElement(list, 7);
+  printList(list); 
   
-  list = clean_AT(list);
-  print_AT(list); 
+  list = cleanList(list);
+  printList(list); 
 
   return EXIT_SUCCESS;
 }
