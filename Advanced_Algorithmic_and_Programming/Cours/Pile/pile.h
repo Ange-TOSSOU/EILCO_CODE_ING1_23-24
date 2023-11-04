@@ -8,10 +8,11 @@ struct element
 };
 typedef struct element Element;
 
-Element* clean_AT(Element* pile);
-Element* create_AT(int a);
-Element* push_AT(Element* pile, int a);
-Element* find_AT(Element* pile, int a);
-Element* pop_AT(Element* pile, int* a);
+Element* cleanStack(Element* stack);
+Element* createElement(int a);
+Element* pushElement(Element* stack, int a);
+Element* findElement(Element* stack, int a);
+Element* popElement(Element* stack, int* a);
 
-void print_AT(Element* pile);
+void printStack(Element* stack);
+

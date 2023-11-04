@@ -2,35 +2,34 @@
 
 int main()
 {
-  Element* pile = NULL;
+  Element* stack = NULL;
 
-  print_AT(pile);
+  printStack(stack);
 
-  pile = push_AT(pile, 6);
-  pile = push_AT(pile, 2);
-  pile = push_AT(pile, 3);
-  print_AT(pile);
+  stack = pushElement(stack, 6);
+  stack = pushElement(stack, 2);
+  stack = pushElement(stack, 3);
+  printStack(stack);
 
-  pile = push_AT(pile, 9);
-  pile = push_AT(pile, 9);
-  pile = push_AT(pile, 2);
-  print_AT(pile);
+  stack = pushElement(stack, 9);
+  stack = pushElement(stack, 9);
+  stack = pushElement(stack, 2);
+  printStack(stack);
 
-  pile = clean_AT(pile);
-  print_AT(pile);
+  stack = cleanStack(stack);
+  printStack(stack);
 
-  pile = push_AT(pile, 2);
-  pile = push_AT(pile, 3);
-  pile = push_AT(pile, 7);
-  print_AT(pile);
+  stack = pushElement(stack, 2);
+  stack = pushElement(stack, 3);
+  stack = pushElement(stack, 7);
+  printStack(stack);
   
-  /*pile = pop_AT(pile, 3, NULL);
-  print_AT(pile);*/
-  pile = pop_AT(pile, NULL);
-  print_AT(pile); 
+  stack = popElement(stack, NULL);
+  printStack(stack); 
   
-  pile = clean_AT(pile);
-  print_AT(pile); 
+  stack = cleanStack(stack);
+  printStack(stack); 
 
   return EXIT_SUCCESS;
 }
+

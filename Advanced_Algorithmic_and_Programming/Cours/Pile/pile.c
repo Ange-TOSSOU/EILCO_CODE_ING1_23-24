@@ -1,15 +1,15 @@
 #include "pile.h"
 
 
-Element* clean_AT(Element* pile)
+Element* cleanStack(Element* stack)
 {
-  while(pile != NULL)
-    pile = pop_AT(pile, NULL);
+  while(stack != NULL)
+    stack = popElement(stack, NULL);
 
-  return pile;
+  return stack;
 }
 
-Element* create_AT(int a)
+Element* createElement(int a)
 {
   Element* e = (Element*)malloc(sizeof(Element));
   e->value = a;
@@ -18,62 +18,63 @@ Element* create_AT(int a)
   return e;
 }
 
-Element* push_AT(Element* pile, int a)
+Element* pushElement(Element* stack, int a)
 {
-  Element* e = create_AT(a);
+  Element* e = createElement(a);
 
-  e->next = pile;
+  e->next = stack;
 
   return e;
 }
 
-Element* find_AT(Element* pile, int a)
+Element* findElement(Element* stack, int a)
 {
-  while(pile != NULL)
+  while(stack != NULL)
   {
-    if(pile->value == a)
-      return pile;
+    if(stack->value == a)
+      return stack;
 
-    pile = pile->next;
+    stack = stack->next;
   }
 
   return NULL;
 }
 
-Element* pop_AT(Element* pile, int* a)
+Element* popElement(Element* stack, int* a)
 {
-  Element *cur = pile;
+  Element *cur = stack;
 
   if(cur != NULL)
   {
-    pile = cur->next;
+    stack = cur->next;
     if(a != NULL)
       *a = cur->value;
     free(cur);
   }
   
-  return pile;
+  return stack;
 }
 
-void print_AT(Element* pile)
+void printStack(Element* stack)
 {
-  int begin = 1;
+  int start = 1;
   
-  while(pile != NULL)
+  while(stack != NULL)
   {
-    if(begin)
+    if(start)
     {
-      printf("{%d}", pile->value);
-      begin = 0;
+      printf("{%d}", stack->value);
+      start = 0;
     }
     else
-      printf(" -> {%d}", pile->value);
+      printf(" -> {%d}", stack->value);
 
-    pile = pile->next;
+    stack = stack->next;
   }
 
-  if(begin)
-    printf("The pile is empty.");
+  if(start)
+    printf("The stack is empty.");
 
   printf("\n");
 }
+
