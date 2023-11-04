@@ -1,34 +1,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct
+struct client
 {
   int id, time, need;
-}Client;
-
-struct element
-{
-  Client client;
-  struct element *next;
+  struct client *next;
 };
-typedef struct element Element;
+typedef struct client Client;
 
 typedef struct
 {
-  Element* head;
-  Element* tail;
-}File;
+  Client* head;
+  Client* tail;
+}Queue;
 
-int is_equal_Client(Client c1, Client c2);
+float average_wait_time(Queue* f);
 
-float average_wait_time(File* f);
+Client* createClient(int id, int time, int need);
+Client* findClient(Queue* f, int id);
 
-Element* create_AT(Client c);
-Element* find_AT(File* f, Client c);
+Queue* cleanQueue(Queue* f);
+Queue* createQueue();
+Queue* popClient(Queue* f);
+Queue* pushClient(Queue* f, int id, int time, int need);
 
-File* clean_AT(File* f);
-File* createQ_AT();
-File* pop_AT(File* f, Client* c);
-File* push_AT(File* f, Client c);
+void printQueue(Queue* f);
 
-void print_AT(File* f);
