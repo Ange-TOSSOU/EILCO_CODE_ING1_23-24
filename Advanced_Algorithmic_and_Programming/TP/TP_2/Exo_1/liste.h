@@ -1,3 +1,6 @@
+#ifndef LISTEH
+#define LISTEH
+
 #include <stdio.h>
 #include <stdlib.h>
 //#include <limits.h>
@@ -27,4 +30,6 @@ Client* creerClient(int id, float x, float y, int q);
 Client* insertionClient(Client* liste, Client* c, int pos);
 Client* suppressionClient(Client* liste, int pos);
 Client* cleanAllClients(Client* liste);
+
+#endif
 

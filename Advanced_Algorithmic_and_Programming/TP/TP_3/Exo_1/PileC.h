@@ -1,5 +1,5 @@
-#ifndef PileCH
-#define PileCH
+#ifndef PILECH
+#define PILECH
 
 #include <stdio.h>
 #include <stdlib.h>
