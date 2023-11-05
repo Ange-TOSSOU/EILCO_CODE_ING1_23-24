@@ -1,3 +1,6 @@
+#ifndef FILEH
+#define FILEH
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -25,4 +28,6 @@ Queue* popClient(Queue* f);
 Queue* pushClient(Queue* f, int id, int time, int need);
 
 void printQueue(Queue* f);
+
+#endif
 

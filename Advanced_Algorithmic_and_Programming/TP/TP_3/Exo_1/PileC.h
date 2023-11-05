@@ -1,3 +1,6 @@
+#ifndef PileCH
+#define PileCH
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -19,4 +22,6 @@ ElementC* findElementC(ElementC* pile, char a);
 ElementC* popElementC(ElementC* pile, char* a);
 
 void printStackC(ElementC* pile);
+
+#endif
 

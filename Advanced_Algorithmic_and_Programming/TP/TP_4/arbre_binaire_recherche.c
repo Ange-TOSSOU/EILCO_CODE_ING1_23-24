@@ -248,3 +248,4 @@ void printRecursive_AT(Node *arbre, int type)
   else
     parcoursInfixeRecursive_AT(arbre);
 }
+

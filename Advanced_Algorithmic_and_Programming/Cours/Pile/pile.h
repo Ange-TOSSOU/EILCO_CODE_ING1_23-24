@@ -1,3 +1,6 @@
+#ifndef PILEH
+#define PILEH
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -15,4 +18,6 @@ Element* findElement(Element* stack, int a);
 Element* popElement(Element* stack, int* a);
 
 void printStack(Element* stack);
+
+#endif
 

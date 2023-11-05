@@ -1,3 +1,6 @@
+#ifndef FILEH
+#define FILEH
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -17,4 +20,6 @@ Element* findElement(Element* pile, float a);
 Element* popElement(Element* pile, float* a);
 
 void printStack(Element* pile);
+
+#endif
 

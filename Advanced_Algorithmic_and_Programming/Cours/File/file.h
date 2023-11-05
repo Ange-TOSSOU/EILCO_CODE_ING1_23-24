@@ -1,3 +1,6 @@
+#ifndef FILEH
+#define FILEH
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -23,4 +26,6 @@ Queue* popElement(Queue* f, int* a);
 Queue* pushElement(Queue* f, int a);
 
 void printQueue(Queue* f);
+
+#endif
 

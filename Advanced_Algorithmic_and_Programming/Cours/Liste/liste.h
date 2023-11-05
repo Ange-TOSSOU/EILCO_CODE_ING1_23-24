@@ -1,3 +1,6 @@
+#ifndef LISTEH
+#define LISTEH
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -16,4 +19,6 @@ Element* findElement(Element* list, int a);
 Element* popElement(Element* list, int a);
 
 void printList(Element* list);
+
+#endif
 
