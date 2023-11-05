@@ -10,6 +10,7 @@ struct elementC
 typedef struct elementC ElementC;
 
 char* convertir_infixe_postfixe(char expI[]);
+char* convertir_infixe_postfixe_generalisee(char expI[]);
 
 ElementC* cleanStackC(ElementC* pile);
 ElementC* createElementC(char a);

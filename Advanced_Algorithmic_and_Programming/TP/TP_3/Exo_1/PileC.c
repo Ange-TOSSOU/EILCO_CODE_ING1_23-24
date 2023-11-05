@@ -27,6 +27,55 @@ char* convertir_infixe_postfixe(char expI[])
   return postfixe;
 }
 
+char* convertir_infixe_postfixe_generalisee(char expI[])
+{
+  char *postfixe = calloc(strlen(expI)+1, sizeof(char)), c;
+  int i, j;
+
+  ElementC *pile = NULL;
+
+  for(i=0, j=0; (c=expI[i]) != '\0'; ++i)
+  {
+    if(c == '(')
+      pile = pushElementC(pile, c);
+    else if(is_digit(c))
+    {
+      postfixe[j] = c;
+      ++j;
+    }
+    else if(is_operator(c))
+    {
+      if( (c == '*') || (c == '/') )
+        pile = pushElementC(pile, c);
+      else
+      {
+        while( (pile != NULL) && (pile->value == '*' || pile->value == '/') )
+	{
+          pile = popElementC(pile, postfixe+j);
+	  ++j;
+	}
+	pile = pushElementC(pile, c);
+      }
+    }
+    else if(c == ')')
+    {
+      while( (pile != NULL) && (pile->value != '(') )
+      {
+        pile = popElementC(pile, postfixe+j);
+        ++j;
+      }
+      pile = popElementC(pile, NULL);
+    }
+  }
+  while(pile != NULL)
+  {
+    pile = popElementC(pile, postfixe+j);
+    ++j;
+  }
+
+  return postfixe;
+}
+
 ElementC* cleanStackC(ElementC* pile)
 {
   while(pile != NULL)
