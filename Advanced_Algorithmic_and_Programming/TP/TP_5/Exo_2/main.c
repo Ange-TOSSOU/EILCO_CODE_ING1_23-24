@@ -15,5 +15,12 @@ int main()
 {
 	insererFichier(Table, "dictionnaire.txt");
 	afficher(Table);
+
+	printf("\n");
+	printf("Exist(bca) = %d\n", existMot(Table, "bca"));
+	printf("Exist(abc) = %d\n", existMot(Table, "abc"));
+	printf("Exist(def) = %d\n", existMot(Table, "def"));
+	printf("Exist(dee) = %d\n", existMot(Table, "dee"));
+
 	return 0;
 }
